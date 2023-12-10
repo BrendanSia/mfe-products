@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt, faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faEye } from '@fortawesome/free-solid-svg-icons';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
+import { pageStyle } from '../App';
 
 export const headerStyle = {
-    backgroundColor: '#DEC599',
+    backgroundColor: '#52ab98',
     padding: '20px',
     borderBottom: '2px solid #ccc',
 };
@@ -19,14 +20,16 @@ const ListingPage = () => {
         borderCollapse: 'collapse',
         width: '100%',
         border: '1px solid #000',
-        margin: '0 auto',
+        padding: '0 20px',
+        margin: '10px auto',
+        maxWidth: '1800px',
+        backgroundColor:"#c8d8e4"
     };
     
     const columnStyle = {
         textAlign: 'left',
         padding: '8px',
         borderRight: '1px solid #000',
-        backgroundColor: '#f2f2f2',
     };
     
     const lastColumnStyle = {
@@ -42,7 +45,7 @@ const ListingPage = () => {
     };  
 
     const thStyle = {
-        backgroundColor: '#99BADD',
+        backgroundColor: '#2b6777',
         textAlign: 'left',
         border: '1px solid black',
         padding: '8px',
@@ -56,6 +59,18 @@ const ListingPage = () => {
         height: '10vh',
         textAlign: 'center'
     };
+
+    const buttonContainerStyle = {
+        margin: '10px 0', // Adjust top and bottom margin as needed
+        paddingLeft: '10px', // Add left padding to create space from the screen edge
+    };
+
+    const buttonStyle = {
+        margin: '5px', // Adjust margin as needed
+        padding: '8px 12px', // Adjust padding as needed
+        width: '100px', // Set the desired width for the buttons
+    };
+
 
     const [products, setProducts] = useState([]);
     const [page, setPage] = useState(0);
@@ -127,63 +142,76 @@ const ListingPage = () => {
     }
     
     return (
-        <div className='mx-xl'>
-        <h1 style={headerStyle}>Product List</h1>
-        <NotificationContainer />
-        <table style={tableStyle}>
-            <thead>
-              <tr>
-                <th style={thStyle}>ID</th>
-                <th style={thStyle}>Code</th>
-                <th style={thStyle}>Name</th>
-                <th style={thStyle}>Category</th>
-                <th style={thStyle}>Brand</th>
-                <th style={thStyle}>Type</th>
-                <th style={thStyle}>Description</th>
-                <th style={thStyle}>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((product) => (
-                <tr key={product.id}>
-                  <td style={tdStyle}>{checkString(product.id)}</td>
-                  <td style={tdStyle}>{checkString(product.code)}</td>
-                  <td style={tdStyle}>{checkString(product.name)}</td>
-                  <td style={tdStyle}>{checkString(product.category)}</td>
-                  <td style={tdStyle}>{checkString(product.brand)}</td>
-                  <td style={tdStyle}>{checkString(product.type)}</td>
-                  <td style={tdStyle}>{checkString(product.description)}</td>
-                  <td style={lastColumnStyle}>
-                    <button  onClick={() => handleClick(product)}>
-                        <FontAwesomeIcon icon={faEye} /> View
-                    </button>
-                    <button onClick={() => onEditClick(product)}>
-                        <FontAwesomeIcon icon={faPencilAlt}/> Edit
-                    </button>
-                    <button onClick={() => onDeleteClick(product)}>
-                        <FontAwesomeIcon icon={faTrash}/> Delete
-                    </button>
-                  </td>
+        <div style={pageStyle}>
+            <header style={headerStyle}>
+            <h1>Product List</h1>
+            <div>
+                <Link to="/data-entry">
+                    <button>Create Product</button>
+                </Link>
+            </div>
+            </header>
+        
+            <NotificationContainer />
+            <table style={tableStyle}>
+                <thead>
+                <tr>
+                    <th style={thStyle}>ID</th>
+                    <th style={thStyle}>Code</th>
+                    <th style={thStyle}>Name</th>
+                    <th style={thStyle}>Category</th>
+                    <th style={thStyle}>Brand</th>
+                    <th style={thStyle}>Type</th>
+                    <th style={thStyle}>Description</th>
+                    <th style={thStyle}>Actions</th>
                 </tr>
-              ))}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {products.map((product) => (
+                    <tr key={product.id}>
+                    <td style={tdStyle}>{checkString(product.id)}</td>
+                    <td style={tdStyle}>{checkString(product.code)}</td>
+                    <td style={tdStyle}>{checkString(product.name)}</td>
+                    <td style={tdStyle}>{checkString(product.category)}</td>
+                    <td style={tdStyle}>{checkString(product.brand)}</td>
+                    <td style={tdStyle}>{checkString(product.type)}</td>
+                    <td style={tdStyle}>{checkString(product.description)}</td>
+                    <td style={lastColumnStyle}>
+                        <button style={buttonStyle} onClick={() => handleClick(product)}>
+                            <FontAwesomeIcon icon={faEye} /> View
+                        </button>
+                        <button style={buttonStyle} onClick={() => onEditClick(product)}>
+                            <FontAwesomeIcon icon={faPencilAlt}/> Edit
+                        </button>
+                        {/* <button onClick={() => onDeleteClick(product)}>
+                            <FontAwesomeIcon icon={faTrash}/> Delete
+                        </button> */}
+                    </td>
+                    </tr>
+                ))}
+                </tbody>
+            </table>
     
-        <div style={gridStyle}>
-            <button disabled={page === 0} onClick={() => handlePageChange(page - 1)}>
-                {'<'}
-            </button>
-            <span>Page {page + 1} of {totalPages}</span>
-            <button disabled={page === totalPages - 1} onClick={() => handlePageChange(page + 1)}>
-                {'>'}
-            </button>
+            <div style={gridStyle}>
+                <div style={buttonContainerStyle}>
+                    <button
+                        disabled={page === 0}
+                        onClick={() => handlePageChange(page - 1)}
+                        style={buttonStyle}
+                    >
+                        {'<'}
+                    </button>
+                    <span>Page {page + 1} of {totalPages}</span>
+                    <button
+                        disabled={page === totalPages - 1}
+                        onClick={() => handlePageChange(page + 1)}
+                        style={buttonStyle}
+                    >
+                        {'>'}
+                    </button>
+                </div>
+            </div>
         </div>
-        <div>
-            <Link to="/data-entry">
-                <button>Create Product</button>
-            </Link>
-        </div>
-    </div>
     );
 };
 

@@ -38,7 +38,9 @@ const DetailPage = () => {
 
     return (
         <div>
-            <h1 style={headerStyle}>Product Detail Page</h1>
+            <header style={headerStyle}>
+                <h1>Product Detail Page</h1>
+            </header>
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
             {productData && (

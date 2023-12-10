@@ -19,7 +19,7 @@ const labelStyles = {
 const containerStyles = {
     width: '400px',
     margin: '20px auto',
-    backgroundColor: '#cceeff',
+    backgroundColor:"#c8d8e4",
     padding: '20px',
     borderRadius: '8px',
     display: 'flex', 
@@ -71,9 +71,10 @@ const DataEntryPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let responseData;
+    let response;
     try {
       if (isEdit) {
-          const response = await fetch(`http://localhost:8080/api/products/process/${code}`, {
+          response = await fetch(`http://localhost:8080/api/products/process/${code}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -83,7 +84,7 @@ const DataEntryPage = () => {
         });
         responseData = await response.text();
       } else {
-          const response = await fetch('http://localhost:8080/api/products', {
+          response = await fetch('http://localhost:8080/api/products', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -94,7 +95,7 @@ const DataEntryPage = () => {
         responseData = await response.text();
       }
 
-      if (true) {
+      if (response.ok) {
           if (responseData === 'Product saved successfully') {
             NotificationManager.success(responseData, 'Success', 2000);
           } else if (responseData === 'Record updated successfully') {
@@ -118,6 +119,11 @@ const DataEntryPage = () => {
     <div>
         <header style={headerStyle}>
             <h1>Create Product</h1>
+            <div>
+            <Link to="/listing">
+                <button>To Listing Page</button>
+            </Link>
+        </div>
         </header>
         <NotificationContainer />
         <form onSubmit={handleSubmit}>
@@ -152,6 +158,7 @@ const DataEntryPage = () => {
                     onChange={handleInputChange}
                     style={{ ...inputStyles }}
                     placeholder='Fashion'
+                    required
                 />
 
                 <label style={labelStyles}>Brand:</label>
@@ -185,11 +192,6 @@ const DataEntryPage = () => {
             </div> 
             <button type="submit" style={submitButtonStyle}>Save</button>
         </form>
-        <div>
-            <Link to="/listing">
-                <button>To Listing Page</button>
-            </Link>
-        </div>
     </div>
   );
 };

@@ -5,6 +5,11 @@ import ListingPage from './pages/ListingPage';
 import DataEntryPage from './pages/DataEntryPage';
 import DetailPage from './pages/DetailPage';
 
+export const pageStyle = {
+  backgroundColor: '#fffff',
+  minHeight: '100vh',
+}
+
 function App() {
   return (
     <Router>
