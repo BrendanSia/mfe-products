@@ -44,7 +44,6 @@ const DataEntryPage = () => {
     type: '',
     description: ''
   });
-  const [existingData, setExistingData] = useState(null);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

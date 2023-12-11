@@ -61,14 +61,14 @@ const ListingPage = () => {
     };
 
     const buttonContainerStyle = {
-        margin: '10px 0', // Adjust top and bottom margin as needed
-        paddingLeft: '10px', // Add left padding to create space from the screen edge
+        margin: '10px 0',
+        paddingLeft: '10px',
     };
 
     const buttonStyle = {
-        margin: '5px', // Adjust margin as needed
-        padding: '8px 12px', // Adjust padding as needed
-        width: '100px', // Set the desired width for the buttons
+        margin: '5px',
+        padding: '8px 12px',
+        width: '100px',
     };
 
 
@@ -183,9 +183,6 @@ const ListingPage = () => {
                         <button style={buttonStyle} onClick={() => onEditClick(product)}>
                             <FontAwesomeIcon icon={faPencilAlt}/> Edit
                         </button>
-                        {/* <button onClick={() => onDeleteClick(product)}>
-                            <FontAwesomeIcon icon={faTrash}/> Delete
-                        </button> */}
                     </td>
                     </tr>
                 ))}
